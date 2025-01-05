@@ -34,7 +34,7 @@ To install **BornInfo** on your system, follow the instructions below:
    You can either download the script from GitHub or clone the repository using Git:
 
    ```bash
-   git clone https://github.com/yourusername/borninfo.git
+   git clone https://github.com/zajaddou/borninfo.git
    ```
 
 2. **Make the script executable**:
