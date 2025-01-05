@@ -109,7 +109,7 @@ Please ensure that your code follows the project's coding conventions and includ
 
 ## Contact 📬
 
-For questions or feedback, feel free to open an issue on the GitHub repository or contact us directly at [your-email@example.com].
+For questions or feedback, feel free to open an issue on the GitHub repository or contact us directly at [zajaddou@student.1337.ma].
 
 ---
 
