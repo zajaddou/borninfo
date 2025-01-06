@@ -104,7 +104,7 @@ Options:
   -d, --disk             Show disk usage
   -l, --cpu-load         Show CPU load
   -b, --last-boot        Show last boot time
-      --lvm            Show if LVM is in use
+      --lvm              Show if LVM is in use
   -t, --tcp              Show established TCP connections
   -u, --user-log         Show number of logged-in users
   -n, --network          Show network information (IP and MAC)
