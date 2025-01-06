@@ -1,117 +1,33 @@
-
+# Let's create the README file with the provided content
+readme_content = """
 # BornInfo - System Information Tool ![borninfo](https://img.shields.io/badge/BornInfo-Tool-blue)
 
-**BornInfo** is a lightweight command-line utility designed to help users gather critical information about their Debian-based systems. It provides quick access to essential system details, including CPU, memory, disk usage, network configurations, and much more. 🚀
-
-This tool is ideal for system administrators, developers, or anyone who needs to quickly check the status and health of their machine.
+**BornInfo** is a lightweight command-line tool that helps you gather essential information about your system. It displays details about CPU, memory, disk usage, network, and more. Perfect for system administrators and developers who need to quickly check system health.
 
 ## Features 📋
 
-- 🖥 **System Architecture**: Displays system architecture information (e.g., kernel version, machine type).
-- ⚙️ **CPU Information**: Shows physical CPU count and virtual CPUs (vCPUs).
-- 💾 **Memory Usage**: Displays memory usage with total, used, and free memory statistics.
-- 💻 **Disk Usage**: Provides disk space usage, including the total, used, and available space.
-- 🏋️ **CPU Load**: Shows real-time CPU load percentage.
-- 🕒 **Last Boot Time**: Displays the time and date of the last system boot.
-- 🔒 **LVM Support**: Indicates if Logical Volume Management (LVM) is in use.
-- 🌐 **Network Info**: Displays local IP and MAC addresses of the system.
-- 🔌 **Active TCP Connections**: Lists the number of established TCP connections.
-- 👤 **User Sessions**: Displays the number of users currently logged in.
-- 🛠 **Sudo Commands**: Tracks and displays the number of sudo commands executed.
+- 🖥 **System Architecture**: Kernel version, machine type.
+- ⚙️ **CPU Information**: Physical and virtual CPUs.
+- 💾 **Memory Usage**: Total, used, and free memory.
+- 💻 **Disk Usage**: Space usage and available disk.
+- 🏋️ **CPU Load**: Real-time CPU load percentage.
+- 🕒 **Last Boot Time**: Time and date of the last boot.
+- 🔒 **LVM Support**: Check if LVM is used.
+- 🌐 **Network Info**: Local IP and MAC addresses.
+- 🔌 **TCP Connections**: Active TCP connections.
+- 👤 **User Sessions**: Logged-in users.
+- 🛠 **Sudo Commands**: Number of sudo commands executed.
 
 ## Installation 🛠️
 
-### For Debian Users 🚶‍♂️
+### Prerequisites 📝
 
-1. **Clone the Repository**:
-   If you haven't already cloned the repository, use the following command:
+- Debian-based system (Debian, Ubuntu, etc.)
+- Bash shell
+
+### Installation Steps 🚶‍♂️
+
+1. **Clone the repository**:
 
    ```bash
    git clone https://github.com/zajaddou/borninfo.git
-   cd borninfo
-   ```
-
-2. **Download the `.deb` Package**:
-   Alternatively, you can go to the [releases page](https://github.com/zajaddou/borninfo/releases) on GitHub to download the latest `.deb` package.
-
-3. **Install the Package**:
-   Once you're in the directory containing the `.deb` file, install it using the following command:
-
-   ```bash
-   sudo dpkg -i borninfo.deb
-   ```
-
-   This will automatically install **BornInfo** on your system and make it accessible globally via the `borninfo` command.
-
-4. **Verify the Installation**:
-   Run the tool to verify it is installed properly:
-
-   ```bash
-   borninfo
-   ```
-
-### Uninstallation 🛠️
-
-To remove **BornInfo** from your system, use the following command:
-
-```bash
-sudo dpkg -r borninfo
-```
-
-This will remove the package and its associated files from your system.
-
-## Usage 💡
-
-### Options:
-
-- `-a, --all`: Show all system information.
-- `-r, --architecture`: Show system architecture.
-- `-c, --cpu-physical`: Show the number of physical CPUs.
-- `-v, --vcpu`: Show the number of virtual CPUs.
-- `-m, --memory`: Show memory usage.
-- `-d, --disk`: Show disk usage.
-- `-l, --cpu-load`: Show CPU load percentage.
-- `-b, --last-boot`: Show the last boot time.
-- `--lvm`: Show if LVM is in use.
-- `-t, --tcp`: Show established TCP connections.
-- `-u, --user-log`: Show the number of logged-in users.
-- `-n, --network`: Show network information (IP and MAC).
-- `-s, --sudo`: Show the number of sudo commands used.
-- `-h, --help`: Display this help message.
-
-### Example:
-
-To show all available system information, run:
-
-```bash
-borninfo -a
-```
-
-To display memory usage only, use:
-
-```bash
-borninfo -m
-```
-
-## Contributing 🤝
-
-We welcome contributions to improve **BornInfo**. To contribute:
-
-1. Fork the repository on GitHub.
-2. Create a new branch for your changes.
-3. Commit your changes and push to your fork.
-4. Submit a pull request.
-
-Please ensure that your code follows the project's coding conventions and includes relevant tests or documentation.
-
-## License 📝
-
-**BornInfo** is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-## Contact 📬
-
-For questions or feedback, feel free to open an issue on the GitHub repository or contact us directly at [zajaddou@student.1337.ma].
-
----
-
-Thank you for using **BornInfo**! We hope this tool helps you manage and monitor your systems with ease. 😊
