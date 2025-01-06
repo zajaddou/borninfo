@@ -1,2 +1,2 @@
 #!/bin/bash
-chmod +x /usr/bin/borninfo
+chmod 755 /usr/bin/borninfo
