@@ -1,7 +1,6 @@
-
 # BornInfo - System Information Tool ![borninfo](https://img.shields.io/badge/BornInfo-Tool-blue)
 
-**BornInfo** is a lightweight command-line utility designed to help users gather critical information about their Debian-based systems. It provides quick access to essential system details, including CPU, memory, disk usage, network configurations, and much more. 🚀
+**BornInfo** is a lightweight command-line utility designed to help users gather critical information about their system. It provides quick access to essential system details, including CPU, memory, disk usage, network configurations, and much more. 🚀
 
 This tool is ideal for system administrators, developers, or anyone who needs to quickly check the status and health of their machine.
 
@@ -21,97 +20,75 @@ This tool is ideal for system administrators, developers, or anyone who needs to
 
 ## Installation 🛠️
 
-### For Debian Users 🚶‍♂️
+To install **BornInfo** on your Debian system, follow these steps:
 
-1. **Clone the Repository**:
-   If you haven't already cloned the repository, use the following command:
+### Prerequisites 📝
 
+- A Debian-based operating system (Debian, Ubuntu, etc.)
+- Bash shell
+
+### Steps 🚶‍♂️
+
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/zajaddou/borninfo.git
-   cd borninfo
-   ```
+Navigate to the directory:
 
-2. **Download the `.deb` Package**:
-   Alternatively, you can go to the [releases page](https://github.com/zajaddou/borninfo/releases) on GitHub to download the latest `.deb` package.
+bash
+Copy code
+cd borninfo
+Build the .deb package:
 
-3. **Install the Package**:
-   Once you're in the directory containing the `.deb` file, install it using the following command:
+bash
+Copy code
+dpkg-deb --build borninfo
+Install the package: After the .deb file is created, use dpkg to install it:
 
-   ```bash
-   sudo dpkg -i borninfo.deb
-   ```
+bash
+Copy code
+sudo dpkg -i borninfo.deb
+Now, you can run the tool with the borninfo command from anywhere in your terminal.
 
-   This will automatically install **BornInfo** on your system and make it accessible globally via the `borninfo` command.
-
-4. **Verify the Installation**:
-   Run the tool to verify it is installed properly:
-
-   ```bash
-   borninfo
-   ```
-
-### Uninstallation 🛠️
-
-To remove **BornInfo** from your system, use the following command:
-
-```bash
-sudo dpkg -r borninfo
-```
-
-This will remove the package and its associated files from your system.
-
-## Usage 💡
-
-### Options:
-
-- `-a, --all`: Show all system information.
-- `-r, --architecture`: Show system architecture.
-- `-c, --cpu-physical`: Show the number of physical CPUs.
-- `-v, --vcpu`: Show the number of virtual CPUs.
-- `-m, --memory`: Show memory usage.
-- `-d, --disk`: Show disk usage.
-- `-l, --cpu-load`: Show CPU load percentage.
-- `-b, --last-boot`: Show the last boot time.
-- `--lvm`: Show if LVM is in use.
-- `-t, --tcp`: Show established TCP connections.
-- `-u, --user-log`: Show the number of logged-in users.
-- `-n, --network`: Show network information (IP and MAC).
-- `-s, --sudo`: Show the number of sudo commands used.
-- `-h, --help`: Display this help message.
-
-### Example:
-
+Usage 💡
+Options:
+-a, --all: Show all system information.
+-r, --architecture: Show system architecture.
+-c, --cpu-physical: Show the number of physical CPUs.
+-v, --vcpu: Show the number of virtual CPUs.
+-m, --memory: Show memory usage.
+-d, --disk: Show disk usage.
+-l, --cpu-load: Show CPU load percentage.
+-b, --last-boot: Show the last boot time.
+--lvm: Show if LVM is in use.
+-t, --tcp: Show established TCP connections.
+-u, --user-log: Show the number of logged-in users.
+-n, --network: Show network information (IP and MAC).
+-s, --sudo: Show the number of sudo commands used.
+-h, --help: Display this help message.
+Example:
 To show all available system information, run:
 
-```bash
+bash
+Copy code
 borninfo -a
-```
-
 To display memory usage only, use:
 
-```bash
+bash
+Copy code
 borninfo -m
-```
+Contributing 🤝
+We welcome contributions to improve BornInfo. To contribute:
 
-## Contributing 🤝
-
-We welcome contributions to improve **BornInfo**. To contribute:
-
-1. Fork the repository on GitHub.
-2. Create a new branch for your changes.
-3. Commit your changes and push to your fork.
-4. Submit a pull request.
-
+Fork the repository on GitHub.
+Create a new branch for your changes.
+Commit your changes and push to your fork.
+Submit a pull request.
 Please ensure that your code follows the project's coding conventions and includes relevant tests or documentation.
 
-## License 📝
+License 📝
+BornInfo is licensed under the MIT License. See the LICENSE file for more details.
 
-**BornInfo** is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-## Contact 📬
-
+Contact 📬
 For questions or feedback, feel free to open an issue on the GitHub repository or contact us directly at [zajaddou@student.1337.ma].
 
----
-
-Thank you for using **BornInfo**! We hope this tool helps you manage and monitor your systems with ease. 😊
+Thank you for using BornInfo! We hope this tool helps you manage and monitor your systems with ease. 😊
