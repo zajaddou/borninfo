@@ -6,3 +6,4 @@ Architecture: amd64
 Depends: bash, libc6 (>= 2.31)
 Maintainer: Zakaria Ajaddou <zajaddou@student.1337.ma>
 Description: A lightweight command-line tool for system information, including CPU, memory, and disk usage.
+
