@@ -1,9 +1,14 @@
 #!/bin/bash
 
 export DEBIAN_FRONTEND=noninteractive
-sleep 2
+
+sleep 1
+
 chmod 755 /usr/bin/borninfo
-sleep 2
+
+apt-get install net-tool
+apt-get install
+
 sudo apt-get install -f -y
 
 exit 0
