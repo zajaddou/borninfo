@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#apt-get install -f
-chmod +X /usr/bin/borninfo
+chmod 777 /usr/bin/borninfo
+apt-get install -f
 
 exit 0
