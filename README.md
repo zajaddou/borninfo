@@ -30,12 +30,22 @@ BornInfo is a lightweight command-line utility designed to help users gather cri
 
 2. Navigate to the directory:
    ```bash
-   cd borninfo/package
+   cd borninfo
    ```
 
-3. Install the package:
+3. Make the installation script executable:
    ```bash
-   sudo dpkg -i borninfo.deb && apt-get install -f -y
+   chmod +x install.sh
+   ```
+
+4. Run the installation script:
+   ```bash
+   sudo ./install.sh
+   ```
+   
+5. Enjoy! 🎉
+   ```bash
+   Now that the installation is complete, you can use BornInfo
    ```
 
 ## Usage 💡
