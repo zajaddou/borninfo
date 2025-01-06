@@ -2,4 +2,6 @@
 
 chmod 755 /usr/bin/borninfo
 sleep(2)
-apt-get install -f
+sudo apt-get install -f
+
+exit 0
