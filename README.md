@@ -1,11 +1,8 @@
-# Let's generate the README file for download
-
+# Let's create the README file with the provided content
 readme_content = """
 # BornInfo - System Information Tool ![borninfo](https://img.shields.io/badge/BornInfo-Tool-blue)
 
-**BornInfo** is a lightweight command-line utility designed to help users gather critical information about their system. It provides quick access to essential system details, including CPU, memory, disk usage, network configurations, and much more. 🚀
-
-This tool is ideal for system administrators, developers, or anyone who needs to quickly check the status and health of their machine.
+**BornInfo** is a lightweight command-line tool that helps you gather essential information about your system. It displays details about CPU, memory, disk usage, network, and more. Perfect for system administrators and developers who need to quickly check system health.
 
 ## Features 📋
 
