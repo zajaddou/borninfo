@@ -3,7 +3,26 @@ Version: 1.0.0
 Section: utils
 Priority: optional
 Architecture: amd64
-Depends: bash, libc6 (>= 2.31)
+Depends: bash,
+ libc6 (>= 2.31),
+ procps,
+ sysstat,
+ net-tools,
+ hostname,
+ coreutils,
+ systemd,
+ lsb-release,
+ util-linux,
+ iproute2
 Maintainer: Zakaria Ajaddou <zajaddou@student.1337.ma>
-Description: A lightweight command-line tool for system information, including CPU, memory, and disk usage.
-
+Description: A lightweight command-line tool for system information
+ BornInfo provides detailed system information including:
+ * CPU usage and configuration
+ * Memory usage statistics
+ * Disk space utilization
+ * Network information
+ * System architecture details
+ * Boot time information
+ * LVM status
+ * TCP connection status
+ * User session information
