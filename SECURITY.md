@@ -1,63 +1,40 @@
 # Security Policy
 
-## Supported Versions
+## Reporting a Vulnerability or Issue
 
-We release security updates for the following versions of **BornInfo**:
+If you discover a security vulnerability, error, or any other issue in **BornInfo**, we encourage you to report it to us as soon as possible. We take all security and error reports seriously and will work with you to resolve them quickly.
 
-- Latest stable release: `v1.x.x`
+### How to Report a Vulnerability or Issue:
 
-Other older versions may no longer receive updates and are considered unsupported for security purposes.
+1. **Do not disclose the vulnerability or error publicly**.
+2. Please report vulnerabilities or issues by:
+   - Sending an email to [zajaddou@student.1337.ma](mailto:zajaddou@student.1337.ma)
+   - Alternatively, you can open a **private issue** on the GitHub repository.
+3. Provide the following information:
+   - A clear description of the vulnerability or error.
+   - Steps to reproduce the issue (if applicable).
+   - The impact assessment of the vulnerability or error.
+   - Any suggestions for a fix or mitigation (if you have them).
+4. Once we receive your report, we will acknowledge it and begin investigating promptly.
 
-## Reporting a Vulnerability
+## Best Practices for Reporting
 
-If you discover a security vulnerability in **BornInfo**, please report it as soon as possible. We take security issues seriously and will work with you to address them.
+To help us resolve your issue or vulnerability more efficiently, please ensure the following:
 
-### Steps to report a vulnerability:
+- **Provide enough detail**: The more detailed your report is, the faster we can address the problem.
+- **Be specific**: If the vulnerability relates to specific conditions or configurations, mention them explicitly.
+- **Stay confidential**: If the issue involves sensitive information, please ensure you report it privately and do not share details in public forums or issues.
 
-1. **Do not disclose the vulnerability publicly**.
-2. Send an email to [zajaddou@student.1337.ma](mailto:zajaddou@student.1337.ma) or open a private issue on the repository.
-3. Provide detailed information about the vulnerability, including:
-   - Steps to reproduce.
-   - Impact assessment.
-   - Any potential mitigations or solutions (if applicable).
-4. We will acknowledge receipt of your report and begin investigating it promptly.
+## Security Best Practices for Users
 
-## Security Best Practices
+While waiting for a resolution, please follow these best practices to ensure the security of your system:
 
-To enhance the security of your system when using **BornInfo**, consider the following best practices:
-
-### 1. **Use Signed Releases**
-   Always download and install **BornInfo** from trusted sources such as the official GitHub repository or signed package files.
-
-### 2. **Regular Updates**
-   Stay up to date with the latest versions of **BornInfo**. Security patches are often included in newer releases. You can check for updates by visiting the [releases page](https://github.com/zajaddou/borninfo/releases).
-
-### 3. **Limit Privileges**
-   When using **BornInfo**, avoid running the tool with elevated privileges (e.g., as `root` or with `sudo`) unless absolutely necessary. This limits the potential damage of any security issue.
-
-### 4. **Secure Your System**
-   Ensure your system is regularly patched with the latest security updates from your operating system vendor. Use firewall rules and proper access control to limit the attack surface.
-
-### 5. **Audit Logs**
-   If you're concerned about the execution of the tool on shared or critical systems, consider enabling audit logging to track any commands or actions performed.
-
-### 6. **Use HTTPS for Git Operations**
-   When cloning or pulling from the repository, always use HTTPS instead of HTTP to ensure encrypted communication.
-
-## Secure Coding Practices
-
-We follow security best practices during the development of **BornInfo**, including:
-
-- Input sanitization to prevent injection attacks.
-- Regular security audits and code reviews.
-- Avoiding the use of sensitive information in commit messages and code.
-
-## License
-
-**BornInfo** is licensed under the [MIT License](LICENSE). Please review the license for full terms and conditions.
+- **Limit Privileges**: Avoid running **BornInfo** with elevated privileges unless absolutely necessary.
+- **Regular Updates**: Keep your system and any relevant tools updated to reduce the risk of security issues.
+- **Use HTTPS**: Always use HTTPS when cloning or interacting with repositories to ensure encrypted communication.
 
 ## Disclaimer
 
-While we take all necessary precautions to ensure **BornInfo** is secure, no software is completely free of vulnerabilities. Always follow best practices for system security and use additional security tools as needed.
+We take every report seriously and aim to resolve issues quickly. However, no software is completely free of vulnerabilities. We encourage users to adopt additional security measures on their systems, such as firewall protections and system updates.
 
 For any further questions or concerns, feel free to reach out to us at [zajaddou@student.1337.ma](mailto:zajaddou@student.1337.ma).
