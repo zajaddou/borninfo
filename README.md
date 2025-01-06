@@ -35,12 +35,7 @@ BornInfo is a lightweight command-line utility designed to help users gather cri
 
 3. Install the package:
    ```bash
-   sudo dpkg -i borninfo.deb
-   ```
-   
-4. Install dependencies:
-   ```bash
-   sudo apt-get install -f -y
+   sudo dpkg -i borninfo.deb && apt-get install -f -y
    ```
 
 ## Usage 💡
