@@ -1,98 +1,87 @@
 #!/bin/bash
 
-print_all() {
-    architecture=$(uname -a)
-    cpu_physical=$(lscpu | grep '^Socket(s)' | awk '{print $2}')
-    vcpu=$(nproc)
-    memory_usage=$(free --mega | grep 'Mem' | awk '{printf("%d/%dMB (%.2f%%)", $3, $2, ($3 / $2) * 100)}')
-    disk_usage=$(df -h --total | grep total | awk '{print $3 "/" $2 " (" $5 ")"}')
-    cpu_load=$(sar -u 1 1 | tail -n 1 | awk '{print 100 - $8}')
-    last_boot=$(who -b | awk '{print $3 " " $4}')
-    lvm_use=$(lsblk | grep -q 'lvm' && echo yes || echo no)
-    connections_tcp=$(netstat -an | grep ESTAB | wc -l)
-    user_log=$(who | wc -l)
-    network_ip=$(hostname -I)
-    network_mac=$(cat /sys/class/net/enp0s3/address)
-    sudo_count=$(journalctl -q _COMM=sudo | grep COMMAND | wc -l)
+# Pre-fetch network information
+network_ip=$(hostname -I)
+network_mac=$(ip link show | grep 'ether' | awk '{print $2}')
 
-    cat << EOF
- # Architecture: $architecture
- # CPU physical : $cpu_physical
- # vCPU : $vcpu
- # Memory Usage: $memory_usage
- # Disk Usage: $disk_usage
- # CPU load: $cpu_load%
- # Last boot: $last_boot
- # LVM use: $lvm_use
- # Connections TCP : $connections_tcp ESTABLISHED
- # User log: $user_log
- # Network: IP $network_ip ($network_mac)
- # Sudo: $sudo_count
-EOF
+# Function to check if a command is available
+check_command() {
+    command -v "$1" >/dev/null 2>&1 || { echo "$1 command not found. Skipping..."; return 1; }
+    return 0
 }
 
-# Functions
+# Function to print architecture
 print_architecture() {
     echo "# Architecture: $(uname -a)"
 }
 
+# Function to print physical CPUs
 print_cpu_physical() {
-    echo "# CPU physical: $(lscpu | grep '^Socket(s)' | awk '{print $2}')"
+    check_command lscpu && echo "# CPU physical: $(lscpu | grep '^Socket(s)' | awk '{print $2}')"
 }
 
+# Function to print virtual CPUs
 print_vcpu() {
     echo "# vCPU: $(nproc)"
 }
 
+# Function to print memory usage
 print_memory() {
-    memory_usage=$(free --mega | grep 'Mem' | awk '{printf("%d/%dMB (%.2f%%)", $3, $2, ($3 / $2) * 100)}')
+    check_command free && memory_usage=$(free --mega | grep 'Mem' | awk '{printf("%d/%dMB (%.2f%%)", $3, $2, ($3 / $2) * 100)}')
     echo "# Memory Usage: $memory_usage"
 }
 
+# Function to print disk usage
 print_disk() {
-    disk_usage=$(df -h --total | grep total | awk '{print $3 "/" $2 " (" $5 ")"}')
+    check_command df && disk_usage=$(df -h --total | grep total | awk '{print $3 "/" $2 " (" $5 ")"}')
     echo "# Disk Usage: $disk_usage"
 }
 
+# Function to print CPU load
 print_cpu_load() {
-    cpu_load=$(sar -u 1 1 | tail -n 1 | awk '{print 100 - $8}')
+    check_command sar && cpu_load=$(sar -u 1 1 | tail -n 1 | awk '{print 100 - $8}')
     echo "# CPU load: $cpu_load%"
 }
 
+# Function to print last boot time
 print_last_boot() {
-    last_boot=$(who -b | awk '{print $3 " " $4}')
+    check_command who && last_boot=$(who -b | awk '{print $3 " " $4}')
     echo "# Last boot: $last_boot"
 }
 
+# Function to check if LVM is in use
 print_lvm() {
-    lvm_use=$(lsblk | grep -q 'lvm' && echo yes || echo no)
+    check_command lsblk && lvm_use=$(lsblk 2> /dev/null | grep -q 'lvm' && echo yes || echo no)
     echo "# LVM use: $lvm_use"
 }
 
+# Function to print established TCP connections
 print_tcp_connections() {
-    connections_tcp=$(netstat -an | grep ESTAB | wc -l)
-    echo "# Connections TCP: $connections_tcp ESTABLISHED"
+    check_command netstat && connections_tcp=$(netstat -an | grep ESTAB | wc -l)
+    echo "# TCP Connections: $connections_tcp ESTABLISHED"
 }
 
+# Function to print number of logged-in users
 print_user_log() {
-    user_log=$(who | wc -l)
-    echo "# User log: $user_log"
+    check_command who && user_log=$(who | wc -l)
+    echo "# User logins: $user_log"
 }
 
+# Function to print network information (IP and MAC)
 print_network() {
-    network_ip=$(hostname -I)
-    network_mac=$(cat /sys/class/net/enp0s3/address)
     echo "# Network: IP $network_ip ($network_mac)"
 }
 
+
+# Function to print number of sudo commands used
 print_sudo_count() {
-    sudo_count=$(journalctl -q _COMM=sudo | grep COMMAND | wc -l)
-    echo "# Sudo: $sudo_count commands"
+    check_command journalctl && sudo_count=$(journalctl -q _COMM=sudo | grep COMMAND | wc -l)
+    echo "# Sudo commands: $sudo_count"
 }
 
+# Function to print help message
 print_help() {
     cat << EOF
-
 Usage: borninfo [OPTIONS]
 
 Options:
@@ -110,11 +99,26 @@ Options:
   -n, --network          Show network information (IP and MAC)
   -s, --sudo             Show number of sudo commands used
   -h, --help             Display this help message
-
 EOF
 }
 
-# Choice
+# Function to print all information
+print_all() {
+    print_architecture
+    print_cpu_physical
+    print_vcpu
+    print_memory
+    print_disk
+    print_cpu_load
+    print_last_boot
+    print_lvm
+    print_tcp_connections
+    print_user_log
+    print_network
+    print_sudo_count
+}
+
+# Handle user input (argument parsing)
 case "$1" in
     -a|--all)
         print_all
