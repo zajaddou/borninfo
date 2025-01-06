@@ -2,13 +2,30 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
-sleep 1
+dependencies=(
+  "bash"
+  "libc6"
+  "procps"
+  "sysstat"
+  "net-tools"
+  "hostname"
+  "coreutils"
+  "systemd"
+  "lsb-release"
+  "util-linux"
+  "iproute2"
+)
+
+for dep in "${dependencies[@]}"; do
+    if ! dpkg-query -l "$dep" &> /dev/null; then
+        echo "$dep is not installed. Installing..."
+        apt-get install -y "$dep"
+    else
+        echo "$dep is already installed."
+    fi
+done
+
 
 chmod 755 /usr/bin/borninfo
-
-apt-get install net-tool
-apt-get install
-
-sudo apt-get install -f -y
 
 exit 0
