@@ -1,4 +1,4 @@
-# BornInfo - System Information Tool 🚀
+# BornInfo - System Information Tool ![borninfo](https://img.shields.io/badge/BornInfo-Tool-blue)
 
 BornInfo is a lightweight command-line utility designed to help users gather critical information about their system. It provides quick access to essential system details, including CPU, memory, disk usage, network configurations, and much more.
 
