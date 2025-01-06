@@ -1,4 +1,6 @@
 #!/bin/bash
 
-chmod 755 /usr/bin/borninfo
 apt-get install -f
+chmod 755 /usr/bin/borninfo
+
+exit 0
