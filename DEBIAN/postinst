@@ -2,6 +2,8 @@
 
 export DEBIAN_FRONTEND=noninteractive
 sleep 2
-sudo apt-get install -f -y
-sleep 2
 chmod 755 /usr/bin/borninfo
+sleep 2
+sudo apt-get install -f -y
+
+exit 0
