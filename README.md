@@ -56,7 +56,7 @@ borninfo [OPTION]
 - `-d, --disk`: Show disk usage
 - `-l, --cpu-load`: Show CPU load percentage
 - `-b, --last-boot`: Show the last boot time
-- `--lvm`: Show if LVM is in use
+- `    --lvm`: Show if LVM is in use
 - `-t, --tcp`: Show established TCP connections
 - `-u, --user-log`: Show the number of logged-in users
 - `-n, --network`: Show network information (IP and MAC)
