@@ -28,4 +28,6 @@ done
 
 chmod 755 /usr/bin/borninfo
 
+echo " The BIF System Is Ready to Use "
+
 exit 0
