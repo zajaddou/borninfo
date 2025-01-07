@@ -67,7 +67,7 @@ done
 
 # Add necessary permissions for postinst script
 /usr/bin/echo " + Adding Permissions..."
-/usr/bin/chmod 751 package/DEBIAN/postinst
+/usr/bin/chmod 755 package/DEBIAN/postinst
 
 # Compile the package
 /usr/bin/echo " + Building Package..."
