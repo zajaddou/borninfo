@@ -13,7 +13,7 @@ print_architecture() {
 
 # Function to print physical CPUs
 print_cpu_physical() {
-    check_command lscpu && echo " CPU physical: $(lscpu | grep '^Socket(s)' | awk '{print $2}')"
+    check_command lscpu && echo "# CPU physical: $(lscpu | awk '/Socket/{print $2}')"
 }
 
 # Function to print virtual CPUs
@@ -29,7 +29,7 @@ print_memory() {
 
 # Function to print disk usage
 print_disk() {
-    check_command df && disk_usage=$(df -m --total | grep total | awk '{printf "%d/%dGb (%s)\n", $3, $2/1024 ,$5}')
+    check_command df && disk_usage=$(df -m --total | awk '/total/{printf "%d/%dGb (%s)\n", $3, $2/1024 ,$5}')
     echo "# Disk Usage: $disk_usage"
 }
 
@@ -41,7 +41,7 @@ print_cpu_load() {
 
 # Function to print last boot time
 print_last_boot() {
-    check_command who && last_boot=$(who -b | awk '{print $3 " " $4}')
+    check_command who && last_boot=$(uptime -s | cut -d ':' -f1,2)
     echo "# Last boot: $last_boot"
 }
 
@@ -53,7 +53,7 @@ print_lvm() {
 
 # Function to print established TCP connections
 print_tcp_connections() {
-    check_command netstat && connections_tcp=$(netstat -an | grep ESTAB | wc -l)
+    check_command netstat && connections_tcp=$(netstat -an | grep -c ESTAB)
     echo "# TCP Connections: $connections_tcp ESTABLISHED"
 }
 
@@ -65,14 +65,14 @@ print_user_log() {
 
 # Function to print network information (IP and MAC)
 print_network() {
-    network_ip=$(hostname -I)
+    network_ip=$(hostname -I | cut -d ' ' -f1)
     network_mac=$(ip link | awk 'END{print $2}')
-    echo "# Network: IP $network_ip($network_mac)"
+    echo "# Network: IP $network_ip ($network_mac)"
 }
 
 # Function to print number of sudo commands used
 print_sudo_count() {
-    check_command journalctl && sudo_count=$(journalctl -q _COMM=sudo | grep COMMAND | wc -l)
+    check_command journalctl && sudo_count=$(journalctl -q _COMM=sudo | grep -c COMMAND)
     echo "# Sudo : $sudo_count cmd"
 }
 
