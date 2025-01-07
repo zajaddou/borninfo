@@ -2,83 +2,83 @@
 
 # Function to check if a command is available
 check_command() {
-    command -v "$1" >/dev/null 2>&1 || { echo "$1 command not found. Skipping..."; return 1; }
+    command -v "/usr/bin/$1" >/dev/null 2>&1 || { /usr/bin/echo "$1 command not found. Skipping..."; return 1; }
     return 0
 }
 
 # Function to print architecture
 print_architecture() {
-    echo "# Architecture: $(uname -a)"
+    /usr/bin/echo "# Architecture: $(/usr/bin/uname -a)"
 }
 
 # Function to print physical CPUs
 print_cpu_physical() {
-    check_command lscpu && echo "# CPU physical: $(lscpu | awk '/Socket/{print $2}')"
+    check_command lscpu && /usr/bin/echo "# CPU physical: $(/usr/bin/lscpu | /usr/bin/awk '/Socket/{print $2}')"
 }
 
 # Function to print virtual CPUs
 print_vcpu() {
-    echo "# vCPU: $(nproc)"
+    /usr/bin/echo "# vCPU: $(/usr/bin/nproc)"
 }
 
 # Function to print memory usage
 print_memory() {
-    check_command free && memory_usage=$(free --mega | awk '/Mem/{printf("%d/%dMB (%.2f%%)", $3, $2, ($3 / $2) * 100)}')
-    echo "# Memory Usage: $memory_usage"
+    check_command free && memory_usage=$(/usr/bin/free --mega | /usr/bin/awk '/Mem/{printf("%d/%dMB (%.2f%%)", $3, $2, ($3 / $2) * 100)}')
+    /usr/bin/echo "# Memory Usage: $memory_usage"
 }
 
 # Function to print disk usage
 print_disk() {
-    check_command df && disk_usage=$(df -m --total | awk '/total/{printf "%d/%dGb (%s)\n", $3, $2/1024 ,$5}')
-    echo "# Disk Usage: $disk_usage"
+    check_command df && disk_usage=$(/usr/bin/df -m --total | /usr/bin/awk '/total/{printf "%d/%dGb (%s)\n", $3, $2/1024 ,$5}')
+    /usr/bin/echo "# Disk Usage: $disk_usage"
 }
 
 # Function to print CPU load
 print_cpu_load() {
-    check_command sar && cpu_load=$(sar -u 1 1 | awk 'END{print 100 - $8}')
-    echo "# CPU load: $cpu_load%"
+    check_command sar && cpu_load=$(/usr/bin/sar -u 1 1 | /usr/bin/awk 'END{print 100 - $8}')
+    /usr/bin/echo "# CPU load: $cpu_load%"
 }
 
 # Function to print last boot time
 print_last_boot() {
-    check_command who && last_boot=$(uptime -s | cut -d ':' -f1,2)
-    echo "# Last boot: $last_boot"
+    check_command who && last_boot=$(/usr/bin/uptime -s | /usr/bin/cut -d ':' -f1,2)
+    /usr/bin/echo "# Last boot: $last_boot"
 }
 
 # Function to check if LVM is in use
 print_lvm() {
-    check_command lsblk && lvm_use=$(lsblk 2> /dev/null | grep -q 'lvm' && echo yes || echo no)
-    echo "# LVM use: $lvm_use"
+    check_command lsblk && lvm_use=$(/usr/bin/lsblk 2> /dev/null | /usr/bin/grep -q 'lvm' && /usr/bin/echo yes || /usr/bin/echo no)
+    /usr/bin/echo "# LVM use: $lvm_use"
 }
 
 # Function to print established TCP connections
 print_tcp_connections() {
-    check_command netstat && connections_tcp=$(netstat -an | grep -c ESTAB)
-    echo "# TCP Connections: $connections_tcp ESTABLISHED"
+    check_command netstat && connections_tcp=$(/usr/bin/netstat -an | /usr/bin/grep -c ESTAB)
+    /usr/bin/echo "# TCP Connections: $connections_tcp ESTABLISHED"
 }
 
 # Function to print number of logged-in users
 print_user_log() {
-    check_command who && user_log=$(who | wc -l)
-    echo "# User logins: $user_log"
+    check_command who && user_log=$(/usr/bin/who | wc -l)
+    /usr/bin/echo "# User logins: $user_log"
 }
 
 # Function to print network information (IP and MAC)
 print_network() {
-    network_ip=$(hostname -I | cut -d ' ' -f1)
-    network_mac=$(ip link | awk 'END{print $2}')
-    echo "# Network: IP $network_ip ($network_mac)"
+    network_ip=$(/usr/bin/hostname -I | /usr/bin/cut -d ' ' -f1)
+    network_mac=$(/usr/bin/ip link | /usr/bin/awk 'END{print $2}')
+    /usr/bin/echo "# Network: IP $network_ip ($network_mac)"
 }
 
 # Function to print number of sudo commands used
 print_sudo_count() {
-    check_command journalctl && sudo_count=$(journalctl -q _COMM=sudo | grep -c COMMAND)
-    echo "# Sudo : $sudo_count cmd"
+    check_command journalctl && sudo_count=$(/usr/bin/journalctl -q _COMM=sudo | /usr/bin/grep -c COMMAND)
+    /usr/bin/echo "# Sudo : $sudo_count cmd"
 }
 
 # Function to print help message
 print_help() {
-    cat << EOF
+    /usr/bin/cat << EOF
 Usage: borninfo [OPTIONS]
 
 Options:
@@ -160,6 +160,6 @@ case "$1" in
         print_help
         ;;
     *)
-        echo "Invalid option. Use -h or --help for usage information."
+        /usr/bin/echo "Invalid option. Use -h or --help for usage information."
         ;;
 esac
