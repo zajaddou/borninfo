@@ -72,7 +72,7 @@ borninfo [OPTION]
 - `-n, --network`: Show network information (IP and MAC)
 - `-s, --sudo`: Show the number of sudo commands used
 - `-h, --help`: Display help message
-- `    --msg `: Enable labeled output for easier readability
+- `     --msg `: Enable labeled output for easier readability
 
 ### Examples:
 
