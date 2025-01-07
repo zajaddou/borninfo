@@ -105,10 +105,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 For questions or feedback, please:
 - Open an issue on GitHub
 - Contact: zajaddou@student.1337.ma
-
----
-
-Made with ❤️ by zajaddou
-
-
-
