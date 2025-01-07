@@ -1,84 +1,117 @@
 #!/bin/bash
 
+# Global variable for --msg option
+SHOW_MSG=false
+
 # Function to check if a command is available
 check_command() {
-    command -v "/usr/bin/$1" >/dev/null 2>&1 || { /usr/bin/echo "$1 command not found. Skipping..."; return 1; }
+    command -v "/usr/bin/$1" >/dev/null 2>&1 || { echo "$1 command not found. Skipping..."; return 1; }
     return 0
+}
+
+# Function to output based on --msg flag
+output() {
+    if $SHOW_MSG; then
+        echo "$2"  # Show the message with the label
+    else
+        echo "$1"  # Show only the value without the label
+    fi
 }
 
 # Function to print architecture
 print_architecture() {
-    /usr/bin/echo "# Architecture: $(/usr/bin/uname -a)"
+    arch_output=$(/usr/bin/uname -a)
+    output "$arch_output" "# Architecture: $arch_output"
 }
 
 # Function to print physical CPUs
 print_cpu_physical() {
-    check_command lscpu && /usr/bin/echo "# CPU physical: $(/usr/bin/lscpu | /usr/bin/awk '/Socket/{print $2}')"
+    if check_command lscpu; then
+        cpu_physical=$(/usr/bin/lscpu | awk '/Socket/{print $2}')
+        output "$cpu_physical" "# CPU physical: $cpu_physical"
+    fi
 }
 
 # Function to print virtual CPUs
 print_vcpu() {
-    /usr/bin/echo "# vCPU: $(/usr/bin/nproc)"
+    vcpu=$(/usr/bin/nproc)
+    output "$vcpu" "# vCPU: $vcpu"
 }
 
 # Function to print memory usage
 print_memory() {
-    check_command free && memory_usage=$(/usr/bin/free --mega | /usr/bin/awk '/Mem/{printf("%d/%dMB (%.2f%%)", $3, $2, ($3 / $2) * 100)}')
-    /usr/bin/echo "# Memory Usage: $memory_usage"
+    if check_command free; then
+        memory_usage=$(/usr/bin/free --mega | awk '/Mem/{printf("%d/%dMB (%.2f%%)", $3, $2, ($3 / $2) * 100)}')
+        output "$memory_usage" "# Memory Usage: $memory_usage"
+    fi
 }
 
 # Function to print disk usage
 print_disk() {
-    check_command df && disk_usage=$(/usr/bin/df -m --total | /usr/bin/awk '/total/{printf "%d/%dGb (%s)\n", $3, $2/1024 ,$5}')
-    /usr/bin/echo "# Disk Usage: $disk_usage"
+    if check_command df; then
+        disk_usage=$(/usr/bin/df -m --total | awk '/total/{printf "%d/%dGb (%s)\n", $3, $2/1024 ,$5}')
+        output "$disk_usage" "# Disk Usage: $disk_usage"
+    fi
 }
 
 # Function to print CPU load
 print_cpu_load() {
-    check_command sar && cpu_load=$(/usr/bin/sar -u 1 1 | /usr/bin/awk 'END{print 100 - $8}')
-    /usr/bin/echo "# CPU load: $cpu_load%"
+    if check_command sar; then
+        cpu_load=$(/usr/bin/sar -u 1 1 | awk 'END{print 100 - $8}')
+        output "$cpu_load%" "# CPU load: $cpu_load%"
+    fi
 }
 
 # Function to print last boot time
 print_last_boot() {
-    check_command who && last_boot=$(/usr/bin/uptime -s | /usr/bin/cut -d ':' -f1,2)
-    /usr/bin/echo "# Last boot: $last_boot"
+    if check_command who; then
+        last_boot=$(/usr/bin/uptime -s | cut -d ':' -f1,2)
+        output "$last_boot" "# Last boot: $last_boot"
+    fi
 }
 
 # Function to check if LVM is in use
 print_lvm() {
-    check_command lsblk && lvm_use=$(/usr/bin/lsblk 2> /dev/null | /usr/bin/grep -q 'lvm' && /usr/bin/echo yes || /usr/bin/echo no)
-    /usr/bin/echo "# LVM use: $lvm_use"
+    if check_command lsblk; then
+        lvm_use=$(/usr/bin/lsblk 2>/dev/null | grep -q 'lvm' && echo yes || echo no)
+        output "$lvm_use" "# LVM use: $lvm_use"
+    fi
 }
 
 # Function to print established TCP connections
 print_tcp_connections() {
-    check_command netstat && connections_tcp=$(/usr/bin/netstat -an | /usr/bin/grep -c ESTAB)
-    /usr/bin/echo "# TCP Connections: $connections_tcp ESTABLISHED"
+    if check_command netstat; then
+        connections_tcp=$(/usr/bin/netstat -an | grep -c ESTAB)
+        output "$connections_tcp ESTABLISHED" "# TCP Connections: $connections_tcp ESTABLISHED"
+    fi
 }
 
 # Function to print number of logged-in users
 print_user_log() {
-    check_command who && user_log=$(/usr/bin/who | wc -l)
-    /usr/bin/echo "# User logins: $user_log"
+    if check_command who; then
+        user_log=$(who | wc -l)
+        output "$user_log" "# User logins: $user_log"
+    fi
 }
 
 # Function to print network information (IP and MAC)
 print_network() {
-    network_ip=$(/usr/bin/hostname -I | /usr/bin/cut -d ' ' -f1)
-    network_mac=$(/usr/bin/ip link | /usr/bin/awk 'END{print $2}')
-    /usr/bin/echo "# Network: IP $network_ip ($network_mac)"
+    network_ip=$(/usr/bin/hostname -I | cut -d ' ' -f1)
+    network_mac=$(/usr/bin/ip link | awk 'END{print $2}')
+    output "$network_ip ($network_mac)" "# Network: IP $network_ip ($network_mac)"
 }
 
 # Function to print number of sudo commands used
 print_sudo_count() {
-    check_command journalctl && sudo_count=$(/usr/bin/journalctl -q _COMM=sudo | /usr/bin/grep -c COMMAND)
-    /usr/bin/echo "# Sudo : $sudo_count cmd"
+    if check_command journalctl; then
+        sudo_count=$(/usr/bin/journalctl -q _COMM=sudo | grep -c COMMAND)
+        output "$sudo_count cmd" "# Sudo: $sudo_count cmd"
+    fi
 }
 
 # Function to print help message
 print_help() {
-    /usr/bin/cat << EOF
+    cat << EOF
 Usage: borninfo [OPTIONS]
 
 Options:
@@ -95,6 +128,7 @@ Options:
   -u, --user-log         Show number of logged-in users
   -n, --network          Show network information (IP and MAC)
   -s, --sudo             Show number of sudo commands used
+      --msg              Show labels in output
   -h, --help             Display this help message
 EOF
 }
@@ -115,51 +149,79 @@ print_all() {
     print_sudo_count
 }
 
-# Handle user input (argument parsing)
-case "$1" in
-    -a|--all)
-        print_all
-        ;;
-    -r|--architecture)
-        print_architecture
-        ;;
-    -c|--cpu-physical)
-        print_cpu_physical
-        ;;
-    -v|--vcpu)
-        print_vcpu
-        ;;
-    -m|--memory)
-        print_memory
-        ;;
-    -d|--disk)
-        print_disk
-        ;;
-    -l|--cpu-load)
-        print_cpu_load
-        ;;
-    -b|--last-boot)
-        print_last_boot
-        ;;
-    --lvm)
-        print_lvm
-        ;;
-    -t|--tcp)
-        print_tcp_connections
-        ;;
-    -u|--user-log)
-        print_user_log
-        ;;
-    -n|--network)
-        print_network
-        ;;
-    -s|--sudo)
-        print_sudo_count
-        ;;
-    -h|--help)
-        print_help
-        ;;
-    *)
-        /usr/bin/echo "Invalid option. Use -h or --help for usage information."
-        ;;
-esac
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -a|--all)
+            ACTION="print_all"
+            shift
+            ;;
+        -r|--architecture)
+            ACTION="print_architecture"
+            shift
+            ;;
+        -c|--cpu-physical)
+            ACTION="print_cpu_physical"
+            shift
+            ;;
+        -v|--vcpu)
+            ACTION="print_vcpu"
+            shift
+            ;;
+        -m|--memory)
+            ACTION="print_memory"
+            shift
+            ;;
+        -d|--disk)
+            ACTION="print_disk"
+            shift
+            ;;
+        -l|--cpu-load)
+            ACTION="print_cpu_load"
+            shift
+            ;;
+        -b|--last-boot)
+            ACTION="print_last_boot"
+            shift
+            ;;
+        --lvm)
+            ACTION="print_lvm"
+            shift
+            ;;
+        -t|--tcp)
+            ACTION="print_tcp_connections"
+            shift
+            ;;
+        -u|--user-log)
+            ACTION="print_user_log"
+            shift
+            ;;
+        -n|--network)
+            ACTION="print_network"
+            shift
+            ;;
+        -s|--sudo)
+            ACTION="print_sudo_count"
+            shift
+            ;;
+        --msg)
+            SHOW_MSG=true
+            shift
+            ;;
+        -h|--help)
+            print_help
+            exit 0
+            ;;
+        *)
+            echo "Invalid option. Use -h or --help for usage information."
+            exit 1
+            ;;
+    esac
+done
+
+# Execute the selected action
+if [ -n "$ACTION" ]; then
+    $ACTION
+else
+    echo "No action specified. Use -h or --help for usage information."
+fi
