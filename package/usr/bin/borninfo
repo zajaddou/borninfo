@@ -23,7 +23,7 @@ print_vcpu() {
 
 # Function to print memory usage
 print_memory() {
-    check_command free && memory_usage=$(free --mega | grep 'Mem' | awk '{printf("%d/%dMB (%.2f%%)", $3, $2, ($3 / $2) * 100)}')
+    check_command free && memory_usage=$(free --mega | awk '/Mem/{printf("%d/%dMB (%.2f%%)", $3, $2, ($3 / $2) * 100)}')
     echo "# Memory Usage: $memory_usage"
 }
 
