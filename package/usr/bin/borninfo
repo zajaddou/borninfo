@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Pre-fetch network information
-network_ip=$(hostname -I)
-network_mac=$(ip link show | grep 'ether' | awk '{print $2}')
-
 # Function to check if a command is available
 check_command() {
     command -v "$1" >/dev/null 2>&1 || { echo "$1 command not found. Skipping..."; return 1; }
@@ -17,7 +13,7 @@ print_architecture() {
 
 # Function to print physical CPUs
 print_cpu_physical() {
-    check_command lscpu && echo "# CPU physical: $(lscpu | grep '^Socket(s)' | awk '{print $2}')"
+    check_command lscpu && echo " CPU physical: $(lscpu | grep '^Socket(s)' | awk '{print $2}')"
 }
 
 # Function to print virtual CPUs
@@ -33,13 +29,13 @@ print_memory() {
 
 # Function to print disk usage
 print_disk() {
-    check_command df && disk_usage=$(df -h --total | grep total | awk '{print $3 "/" $2 " (" $5 ")"}')
+    check_command df && disk_usage=$(df -m --total | grep total | awk '{printf "%d/%dGb (%s)\n", $3, $2/1024 ,$5}')
     echo "# Disk Usage: $disk_usage"
 }
 
 # Function to print CPU load
 print_cpu_load() {
-    check_command sar && cpu_load=$(sar -u 1 1 | tail -n 1 | awk '{print 100 - $8}')
+    check_command sar && cpu_load=$(sar -u 1 1 | awk 'END{print 100 - $8}')
     echo "# CPU load: $cpu_load%"
 }
 
@@ -69,14 +65,15 @@ print_user_log() {
 
 # Function to print network information (IP and MAC)
 print_network() {
-    echo "# Network: IP $network_ip ($network_mac)"
+    network_ip=$(hostname -I)
+    network_mac=$(ip link | awk 'END{print $2}')
+    echo "# Network: IP $network_ip($network_mac)"
 }
-
 
 # Function to print number of sudo commands used
 print_sudo_count() {
     check_command journalctl && sudo_count=$(journalctl -q _COMM=sudo | grep COMMAND | wc -l)
-    echo "# Sudo commands: $sudo_count"
+    echo "# Sudo : $sudo_count cmd"
 }
 
 # Function to print help message
