@@ -27,9 +27,6 @@ version=$(/usr/bin/awk '/Version/ {print $2}' package/DEBIAN/control)
 
 "
 
-# Print the current working directory
-pwd=$(pwd)
-
 # List of dependencies to check and install
 dependencies=(
   "bash"
