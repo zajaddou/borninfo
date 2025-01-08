@@ -98,10 +98,14 @@ We welcome contributions to improve BornInfo! Here's how you can help:
 
 ## License 📝
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file f0r details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact 📬
 
 For questions or feedback, please:
 - Open an issue on GitHub
 - Contact: zajaddou@student.1337.ma
+
+---
+
+Made with ❤️ by zajaddou

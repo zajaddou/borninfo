@@ -1,5 +1,4 @@
 #!/bin/bash
-
-/usr/bin/chmod 755 /usr/bin/borninfo
-
+set -e  # Ensure the script exits on errors
+chmod 755 /usr/bin/borninfo
 exit 0
