@@ -1,0 +1,13 @@
+Source: borninfo
+Section: utils
+Priority: optional
+Maintainer: Zakaria Ajaddou <zajaddou@student.1337.ma>
+Build-Depends: debhelper-compat (= 12)
+Standards-Version: 3.9.6
+Homepage: https://github.com/zajaddou/borninfo
+
+Package: borninfo
+Architecture: amd64
+Depends: ${misc:Depends}, procps, sysstat, net-tools, lsb-release, iproute2
+Description: Lightweight command-line tool providing system information such as
+ CPU, memory, disk usage, network stats, and more.

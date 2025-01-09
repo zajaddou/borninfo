@@ -1,0 +1,11 @@
+Package: borninfo
+Version: 1.0-1
+Architecture: amd64
+Maintainer: Zakaria Ajaddou <zajaddou@student.1337.ma>
+Installed-Size: 18
+Depends: procps, sysstat, net-tools, lsb-release, iproute2
+Section: utils
+Priority: optional
+Homepage: https://github.com/zajaddou/borninfo
+Description: Lightweight command-line tool providing system information such as
+ CPU, memory, disk usage, network stats, and more.
