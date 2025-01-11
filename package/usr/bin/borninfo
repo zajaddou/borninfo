@@ -28,7 +28,7 @@ print_architecture() {
 print_cpu_physical() {
     if check_command lscpu; then
         cpu_physical=$(/usr/bin/lscpu | awk '/Socket/{print $2}')
-        output "$cpu_physical" "# CPU physical: $cpu_physical"
+        output "$cpu_physical" "#CPU physical: $cpu_physical"
     fi
 }
 
@@ -42,7 +42,7 @@ print_vcpu() {
 print_memory() {
     if check_command free; then
         memory_usage=$(/usr/bin/free --mega | awk '/Mem/{printf("%d/%dMB (%.2f%%)", $3, $2, ($3 / $2) * 100)}')
-        output "$memory_usage" "# Memory Usage: $memory_usage"
+        output "$memory_usage" "#Memory Usage: $memory_usage"
     fi
 }
 
@@ -50,7 +50,7 @@ print_memory() {
 print_disk() {
     if check_command df; then
         disk_usage=$(/usr/bin/df -m --total | awk '/total/{printf "%d/%dGb (%s)\n", $3, $2/1024 ,$5}')
-        output "$disk_usage" "# Disk Usage: $disk_usage"
+        output "$disk_usage" "#Disk Usage: $disk_usage"
     fi
 }
 
@@ -58,7 +58,7 @@ print_disk() {
 print_cpu_load() {
     if check_command sar; then
         cpu_load=$(/usr/bin/sar -u 1 1 | awk 'END{print 100 - $8}')
-        output "$cpu_load%" "# CPU load: $cpu_load%"
+        output "$cpu_load%" "#CPU load: $cpu_load%"
     fi
 }
 
@@ -66,7 +66,7 @@ print_cpu_load() {
 print_last_boot() {
     if check_command who; then
         last_boot=$(/usr/bin/uptime -s | cut -d ':' -f1,2)
-        output "$last_boot" "# Last boot: $last_boot"
+        output "$last_boot" "#Last boot: $last_boot"
     fi
 }
 
@@ -74,7 +74,7 @@ print_last_boot() {
 print_lvm() {
     if check_command lsblk; then
         lvm_use=$(/usr/bin/lsblk 2>/dev/null | grep -q 'lvm' && echo yes || echo no)
-        output "$lvm_use" "# LVM use: $lvm_use"
+        output "$lvm_use" "#LVM use: $lvm_use"
     fi
 }
 
@@ -82,7 +82,7 @@ print_lvm() {
 print_tcp_connections() {
     if check_command netstat; then
         connections_tcp=$(/usr/bin/netstat -an | grep -c ESTAB)
-        output "$connections_tcp ESTABLISHED" "# Connections TCP : $connections_tcp ESTABLISHED"
+        output "$connections_tcp ESTABLISHED" "#Connections TCP : $connections_tcp ESTABLISHED"
     fi
 }
 
@@ -90,7 +90,7 @@ print_tcp_connections() {
 print_user_log() {
     if check_command who; then
         user_log=$(who | wc -l)
-        output "$user_log" "# User log: $user_log"
+        output "$user_log" "#User log: $user_log"
     fi
 }
 
@@ -98,14 +98,14 @@ print_user_log() {
 print_network() {
     network_ip=$(/usr/bin/hostname -I | cut -d ' ' -f1)
     network_mac=$(/usr/bin/ip link | awk 'END{print $2}')
-    output "$network_ip ($network_mac)" "# Network: IP $network_ip ($network_mac)"
+    output "$network_ip ($network_mac)" "#Network: IP $network_ip ($network_mac)"
 }
 
 # Function to print number of sudo commands used
 print_sudo_count() {
     if check_command journalctl; then
         sudo_count=$(/usr/bin/journalctl -q _COMM=sudo | grep -c COMMAND)
-        output "$sudo_count cmd" "# Sudo: $sudo_count cmd"
+        output "$sudo_count cmd" "#Sudo: $sudo_count cmd"
     fi
 }
 
