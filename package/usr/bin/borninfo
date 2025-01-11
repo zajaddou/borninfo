@@ -82,7 +82,7 @@ print_lvm() {
 print_tcp_connections() {
     if check_command netstat; then
         connections_tcp=$(/usr/bin/netstat -an | grep -c ESTAB)
-        output "$connections_tcp ESTABLISHED" "# TCP Connections: $connections_tcp ESTABLISHED"
+        output "$connections_tcp ESTABLISHED" "# Connections TCP : $connections_tcp ESTABLISHED"
     fi
 }
 
@@ -90,7 +90,7 @@ print_tcp_connections() {
 print_user_log() {
     if check_command who; then
         user_log=$(who | wc -l)
-        output "$user_log" "# User logins: $user_log"
+        output "$user_log" "# User log: $user_log"
     fi
 }
 
