@@ -34,7 +34,6 @@ dependencies=(
   "procps"
   "sysstat"
   "net-tools"
-  "hostname"
   "coreutils"
   "systemd"
   "lsb-release"
