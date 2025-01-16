@@ -80,5 +80,17 @@ fi
 # Remove the .deb file after installation
 /usr/bin/rm -rf package.deb
 
+#ask the user if he want to add broninfo to crontab config file
+
+/usr/bin/read -p "# do you want to add this packeg in your crontab 'to run it every minute (for example)' ? [y/N] : " input
+if [$input = 'y'] || [$input = 'Y']; then
+    /usr/bin/read -p "|__\$ do you want to add it to user or root ? (put name of user) : " username
+    /usr/bin/read -p "|__\$ when do you like run broninfo ? (you can use crontab ruls like '*/2 * * * *') : " rul
+    /usr/bin/echo "# Borninfo - crontab config file " >> package/etc/borninfo/cronfile.txt
+    /usr/bin/echo -n $rul >> package/etc/borninfo/cronfile.txt
+    /usr/bin/echo "/usr/bin/borninfo -a --msg" >> package/etc/borninfo/cronfile.txt
+    /usr/bin/crontab -u $user package/etc/borninfo/crontile.txt
+fi
+
 # Final message
 /usr/bin/echo -e "\n * Installation Complete! 🎉\n"
