@@ -63,7 +63,7 @@ done
 
 # Add necessary permissions for postinst script
 /usr/bin/echo " + Adding Permissions..."
-/usr/bin/chmod 755 package/DEBIAN/postinst
+/usr/bin/chmod -R 0755 package
 
 # Compile the package
 /usr/bin/echo " + Building Package..."
@@ -82,10 +82,10 @@ fi
 
 #ask the user if he want to add broninfo to crontab config file
 
-/usr/bin/read -p "# do you want to add this packeg in your crontab 'to run it every minute (for example)' ? [y/N] : " input
-if [$input = 'y'] || [$input = 'Y']; then
-    /usr/bin/read -p "|__\$ do you want to add it to user or root ? (put name of user) : " username
-    /usr/bin/read -p "|__\$ when do you like run broninfo ? (you can use crontab ruls like '*/2 * * * *') : " rul
+read -p "# do you want to add this packeg in your crontab 'to run it every minute (for example)' ? [y/N] : " input
+if [ $input = 'y' ] || [ $input = 'Y' ]; then
+    read -p "|__\$ do you want to add it to user or root ? (put name of user) : " username
+    read -p "|__\$ when do you like run broninfo ? (you can use crontab ruls like '*/2 * * * *') : " rul
     /usr/bin/echo "# Borninfo - crontab config file " >> package/etc/borninfo/cronfile.txt
     /usr/bin/echo -n $rul >> package/etc/borninfo/cronfile.txt
     /usr/bin/echo "/usr/bin/borninfo -a --msg" >> package/etc/borninfo/cronfile.txt
